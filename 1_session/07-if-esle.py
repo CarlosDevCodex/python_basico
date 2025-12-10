@@ -7,3 +7,4 @@ if nota>=11:
     print('Haz aprobado el curso')
 else:
     print("Lo sentimos , has desaprobado el curso")
+print('Sin del programa')
