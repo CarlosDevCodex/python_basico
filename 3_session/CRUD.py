@@ -66,7 +66,7 @@ while True:#Este  ciclo asegura que al menos 1 vez el susuario verá  el menú
         clave=input('Escribe la clave del producto a buscar: ')
         # creamos la consulta en este  caso de selección
         sql='select   *   from productos where clave=%s'
-        #creamos la tupla
+        # creamos la tupla
         val=(clave,)
         # preparamos la instrucción
         mycursor.execute(sql, val)
@@ -78,3 +78,44 @@ while True:#Este  ciclo asegura que al menos 1 vez el susuario verá  el menú
             print(f"El producto con clave {clave} no existe en el sistema")
         time.sleep(3)
         os.system('cls')    
+    elif opcion==4:#modificar 
+        clave=input('Ingrese la clave: ')
+        nombre=input('Nuevo el nombre: ')
+        precio = input("Nuevo precio del producto: ")
+        # creamos la instrucción para crear los datos
+        sql='UPDATE productos set nombre=%s, precio=%s where clave=%s'
+        # creamos la tupla
+        val=(nombre, precio, clave)
+        # preparamos la instrucción
+        mycursor.execute(sql, val)
+        # se realiza la modifcación
+        mybd.commit()
+        # le avisamos al usuario
+        print(f'el producto con clave {clave} se  modificó correctamente ')
+        time.sleep(3)
+        os.system('cls')
+    elif opcion==5: #consulta General
+        # creamos una consulta geenral a la tabla de los productos
+        mycursor.execute('Select * from productos')
+        myresult = mycursor.fetchall()
+        #mostramos el contenido de la tabla
+        print('-----CATALOGO DE PRODUCTOS-----')
+        for x in myresult:
+            #imprimimos cada fila  o registro de la tabla
+            print(x)
+        input('Presione enter para continuar.........')    
+        os.system('cls')
+    elif opcion==6: #salir dle sistema
+        respuesta=input('Estás seguro? (s/n):')
+        if respuesta.upper()=='S':
+            print('Salimos del sistema.....')
+            time.sleep(2)
+            os.system('cls')
+            break
+        time.sleep(2)    
+        os.system('cls')
+    else:# si la opción no fue del 1 al 6
+        print('Opción no válida, intente de nuevo...')    
+        time.sleep(2)
+        os.system('cls')
+mybd.close()        
